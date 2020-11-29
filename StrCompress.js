@@ -1,7 +1,7 @@
 class StrCompress {
     static startCode = 0x100;
     static split = '\u10ff\uf0af\u10ef';
-    static split2 = '\ufa0f';
+    static split2 = ',';
 
     static compress(str){
         var i = 0;
