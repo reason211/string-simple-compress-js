@@ -3,7 +3,7 @@ class StrCompress {
     static split = '\u10ff\uf0af\u10ef';
     static split2 = ',';
 
-    static compress(str){
+    static compress(str) {
         var i = 0;
 
         // split word
@@ -19,7 +19,7 @@ class StrCompress {
         let arr = [];
         // only word length > 1
         for (const key in dict) {
-            if( dict[key] > 1 && key.length > 1){
+            if (dict[key] > 1 && key.length > 1) {
                 arr.push(key);
             }
         }
@@ -27,27 +27,27 @@ class StrCompress {
         // sort by string length
         arr.sort((a, b) => new String(a).length - new String(b).length).reverse();
 
-        arr.forEach( (key) =>{
-            str = str.replaceAll(key, String.fromCharCode(this.startCode + i));
+        arr.forEach((key) => {
+            str = str.split(key).join(String.fromCharCode(this.startCode + i));
 
             i++;
-        } )
+        })
 
         return str + this.split + arr.join(this.split2);
     }
 
-    static decompress(str){
+    static decompress(str) {
         let index = str.indexOf(this.split);
-        if( index >= 0 ){
-            let matchArr = str.substr(index + this.split.length ).split(this.split2).reverse();
+        if (index >= 0) {
+            let matchArr = str.substr(index + this.split.length).split(this.split2).reverse();
             var i = matchArr.length - 1;
-            matchArr.forEach( (word)=>{
-                str = str.replaceAll( String.fromCharCode(this.startCode + i) , word);
+            matchArr.forEach((word) => {
+                str = str.split(String.fromCharCode(this.startCode + i)).join( word );
 
                 i--;
-            } )
+            })
 
-            str = str.substring(0, str.indexOf(this.split)  );
+            str = str.substring(0, str.indexOf(this.split));
         }
 
         return str;
